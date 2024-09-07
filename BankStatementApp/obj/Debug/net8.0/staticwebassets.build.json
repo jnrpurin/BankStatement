@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "tSFa8YKasAf5nCiwpAOypLVqeRMrlKckb3AajQXxTIc=",
+  "Source": "BankStatementApp",
+  "BasePath": "_content/BankStatementApp",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
