@@ -8,7 +8,7 @@ namespace BankStatementApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class StatementController : Controller
+    public class StatementController : ControllerBase
     {
         private readonly ILogger<StatementController> _logger;
         private readonly ITransactionService _transactionService;
@@ -19,16 +19,19 @@ namespace BankStatementApp.Controllers
             _logger = logger;
         }
 
-        [HttpGet("extract/{days}")]
-        public IActionResult GetStatement(int days)
+        // GET /api/statements?days=5
+        [HttpGet]
+        public IActionResult GetStatement([FromQuery] int days)
         {
-            return NotFound("Em desenvolvimento.");
+            return BadRequest(new { message = "Em desenvolvimento." });
         }
 
-        [HttpGet("extract/pdf/{days}")]
-        public IActionResult GetStatementPdf(int days)
+
+        // GET /api/statements/pdf?days=5
+        [HttpGet("pdf")]
+        public IActionResult GetStatementPdf([FromQuery] int days)
         {
-            return NotFound("Em desenvolvimento.");
+            return BadRequest(new { message = "Em desenvolvimento." });
         }
     }
 }
