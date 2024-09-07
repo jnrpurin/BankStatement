@@ -1,6 +1,7 @@
 using BankStatementApp.Interfaces;
 using BankStatementApp.Repositories;
 using BankStatementApp.Services;
+using BankStatement.Data.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,9 @@ builder.Services.AddControllers();
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
+
+builder.Services.AddTransient<IMongoDbContext, MongoDbContext>();
+//builder.Services.AddSingleton<>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

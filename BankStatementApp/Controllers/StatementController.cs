@@ -23,7 +23,18 @@ namespace BankStatementApp.Controllers
         [HttpGet]
         public IActionResult GetStatement([FromQuery] int days)
         {
-            return BadRequest(new { message = "Em desenvolvimento." });
+            if (days != 5 && days != 10 && days != 15 && days != 20)
+            {
+                return BadRequest(new { message = "Dias inválidos. Selecione entre 5, 10, 15 ou 20 dias." });
+            }
+
+            var transactions = _transactionService.GetTransactionsByDays(days);
+            if (!transactions.Any())
+            {
+                return NotFound(new { message = "Nenhuma transação encontrada." });
+            }
+
+            return Ok(new { transactions });
         }
 
 
@@ -31,7 +42,14 @@ namespace BankStatementApp.Controllers
         [HttpGet("pdf")]
         public IActionResult GetStatementPdf([FromQuery] int days)
         {
-            return BadRequest(new { message = "Em desenvolvimento." });
+            var transactions = _transactionService.GetTransactionsByDays(days);
+            if (!transactions.Any())
+            {
+                return NotFound(new { message = "Nenhuma transação encontrada para os últimos " + days + " dias." });
+            }
+
+            var pdfData = _transactionService.GeneratePdf(transactions);
+            return File(pdfData, "application/pdf", $"extrato_{days}_dias.pdf");
         }
     }
 }
