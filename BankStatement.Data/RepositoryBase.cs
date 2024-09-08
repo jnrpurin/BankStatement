@@ -39,6 +39,12 @@ namespace BankStatement.Data
             return GetCollection().Find(filter).ToEnumerable();
         }
 
+        public virtual async Task<IEnumerable<T>> FindAsync(FilterDefinition<T> filter)
+        {
+            using var cursor = await GetCollection().FindAsync(filter);
+            return await cursor.ToListAsync();
+        }
+
         public virtual IEnumerable<T> Find(Expression<Func<T, Boolean>> expression)
         {
             return GetCollection().Find(expression).ToEnumerable();

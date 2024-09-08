@@ -24,6 +24,8 @@ namespace BankStatement.Data
         IEnumerable<T> GetMany(FilterDefinition<T> filter);
 
         IEnumerable<T> GetMany(Expression<Func<T, Boolean>> expression);
+
+        Task<IEnumerable<T>> GetManyAsync(FilterDefinition<T> filter);
     }
 
     public class MongoDbRepository<T>: RepositoryBase<T>, IRepository<T> where T : class, IEntity
@@ -58,6 +60,11 @@ namespace BankStatement.Data
         public virtual IEnumerable<T> GetMany(FilterDefinition<T> filter)
         {
             return Find(filter);
+        }
+
+        public virtual async Task<IEnumerable<T>> GetManyAsync(FilterDefinition<T> filter)
+        {
+            return await FindAsync(filter);
         }
 
         public virtual IEnumerable<T> GetMany(Expression<Func<T, Boolean>> expression)

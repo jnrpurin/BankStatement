@@ -1,5 +1,6 @@
 ﻿using BankStatementApp.Interfaces;
 using BankStatementApp.Models;
+using MongoDB.Bson;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 
@@ -19,16 +20,21 @@ namespace BankStatementApp.Services
             return _repository.GetBankTransactions();
         }
 
-        public IEnumerable<BankTransaction> GetTransactionsByDays(int days)
+        public BankTransaction GetTransactionById(ObjectId objectId)
+        {
+            return _repository.GetBankTransactions().FirstOrDefault(t => t.Id.Equals(objectId));
+        }
+
+        public async Task<IEnumerable<BankTransaction>> GetTransactionsByDays(int days)
         {
             try
             {
                 var startDate = DateTime.Now.AddDays(-days);
-                return _repository.GetBankTransactions(startDate, DateTime.Now);
+                return await _repository.GetBankTransactions(startDate, DateTime.Now);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message, ex);
+                throw new Exception("Erro: As transações não foram recuperadas.", ex);
             }
         }
 
