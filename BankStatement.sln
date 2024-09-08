@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankStatement.API", "BankSt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankStatement.Data", "BankStatement.Data\BankStatement.Data.csproj", "{EA57D2F3-83FC-4EEA-8D2E-1D1C985A37D7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankStatement.UnitTests", "BankStatement.UnitTests\BankStatement.UnitTests.csproj", "{FC4D5236-E65B-4821-8108-6CE52A55E4CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EA57D2F3-83FC-4EEA-8D2E-1D1C985A37D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA57D2F3-83FC-4EEA-8D2E-1D1C985A37D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA57D2F3-83FC-4EEA-8D2E-1D1C985A37D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC4D5236-E65B-4821-8108-6CE52A55E4CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC4D5236-E65B-4821-8108-6CE52A55E4CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC4D5236-E65B-4821-8108-6CE52A55E4CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC4D5236-E65B-4821-8108-6CE52A55E4CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
