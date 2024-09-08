@@ -19,7 +19,7 @@ namespace BankStatementApp.Repositories
             return GetMany(_ => true);
         }
 
-        public IEnumerable<BankTransaction> GetBankTransactions(DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<BankTransaction>> GetBankTransactions(DateTime startDate, DateTime endDate)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace BankStatementApp.Repositories
                     Builders<BankTransaction>.Filter.Lte(t => t.Date, endDate)
                 );
 
-                return GetMany(filter);
+                return await GetManyAsync(filter);
             }
             catch (Exception ex)
             {

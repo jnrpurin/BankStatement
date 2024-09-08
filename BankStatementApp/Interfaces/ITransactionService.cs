@@ -1,12 +1,15 @@
 ﻿using BankStatementApp.Models;
+using MongoDB.Bson;
 
 namespace BankStatementApp.Interfaces
 {
     public interface ITransactionService
     {
-        IEnumerable<BankTransaction> GetTransactionsByDays(int days);
+        Task<IEnumerable<BankTransaction>> GetTransactionsByDays(int days);
 
         IEnumerable<BankTransaction> GetAll();
+
+        BankTransaction GetTransactionById(ObjectId objectId);
 
         void AddTransaction(BankTransaction transaction);
 
