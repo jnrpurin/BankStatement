@@ -3,7 +3,7 @@ using BankStatementApp.Models;
 
 namespace BankStatementApp.Services
 {
-    public class TransactionService: ITransactionService
+    public class TransactionService : ITransactionService
     {
         private readonly ITransactionRepository _repository;
 
@@ -12,10 +12,22 @@ namespace BankStatementApp.Services
             _repository = repository;
         }
 
+        public IEnumerable<BankTransaction> GetAll()
+        {
+            return _repository.GetBankTransactions();
+        }
+
         public IEnumerable<BankTransaction> GetTransactionsByDays(int days)
         {
-            var startDate = DateTime.Now.AddDays(-days);
-            return _repository.GetBankTransactions(startDate, DateTime.Now);
+            try
+            {
+                var startDate = DateTime.Now.AddDays(-days);
+                return _repository.GetBankTransactions(startDate, DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
 
         public void AddTransaction(BankTransaction transaction)
@@ -28,7 +40,7 @@ namespace BankStatementApp.Services
             _repository.UpdateBankTransaction(transaction);
         }
 
-        public void DeleteTransaction(BankTransaction transaction) 
+        public void DeleteTransaction(BankTransaction transaction)
         {
             _repository.DeleteBankTransaction(transaction);
         }

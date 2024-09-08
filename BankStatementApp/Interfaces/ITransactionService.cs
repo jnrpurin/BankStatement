@@ -6,6 +6,8 @@ namespace BankStatementApp.Interfaces
     {
         IEnumerable<BankTransaction> GetTransactionsByDays(int days);
 
+        IEnumerable<BankTransaction> GetAll();
+
         void AddTransaction(BankTransaction transaction);
 
         void UpdateTransaction(BankTransaction transaction);

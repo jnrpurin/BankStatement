@@ -1,9 +1,11 @@
 ﻿using BankStatement.Data.Context;
 using BankStatement.Data.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,11 +17,13 @@ namespace BankStatement.Data
 
         void Update(T entity);
 
-        bool Delete(Guid id);
+        bool Delete(ObjectId id);
 
-        T Get(Guid Id);
+        T Get(ObjectId Id);
 
         IEnumerable<T> GetMany(FilterDefinition<T> filter);
+
+        IEnumerable<T> GetMany(Expression<Func<T, Boolean>> expression);
     }
 
     public class MongoDbRepository<T>: RepositoryBase<T>, IRepository<T> where T : class, IEntity
@@ -41,18 +45,24 @@ namespace BankStatement.Data
             GetCollection().InsertOne(entity);
         }
 
-        public virtual bool Delete(Guid id)
+        public virtual bool Delete(ObjectId id)
         {
             return DeleteOne(x => x.Id == id);
         }
 
-        public virtual T Get(Guid Id)
+        public virtual T Get(ObjectId Id)
         {
             return FindOne(x => x.Id == Id);
         }
+
         public virtual IEnumerable<T> GetMany(FilterDefinition<T> filter)
         {
-            return GetMany(filter);
+            return Find(filter);
+        }
+
+        public virtual IEnumerable<T> GetMany(Expression<Func<T, Boolean>> expression)
+        {
+            return Find(expression);
         }
 
         public virtual void Update(T entity)

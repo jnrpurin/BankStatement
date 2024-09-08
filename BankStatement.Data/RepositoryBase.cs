@@ -13,8 +13,8 @@ namespace BankStatement.Data
     {
         protected readonly IMongoDbContext _mongoDbContext;
         protected RepositoryBase(IMongoDbContext mongoDbContext)
-        { 
-            mongoDbContext = _mongoDbContext;
+        {
+            _mongoDbContext = mongoDbContext;
         }
 
         protected abstract string DefaultCollectionName {  get; }

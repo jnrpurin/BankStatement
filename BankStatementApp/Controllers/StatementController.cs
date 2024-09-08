@@ -28,7 +28,8 @@ namespace BankStatementApp.Controllers
                 return BadRequest(new { message = "Dias inválidos. Selecione entre 5, 10, 15 ou 20 dias." });
             }
 
-            var transactions = _transactionService.GetTransactionsByDays(days);
+            //var transactions = _transactionService.GetTransactionsByDays(days);
+            var transactions = _transactionService.GetAll();
             if (!transactions.Any())
             {
                 return NotFound(new { message = "Nenhuma transação encontrada." });

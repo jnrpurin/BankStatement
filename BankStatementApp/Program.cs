@@ -2,6 +2,8 @@ using BankStatementApp.Interfaces;
 using BankStatementApp.Repositories;
 using BankStatementApp.Services;
 using BankStatement.Data.Context;
+using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +13,8 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 
-builder.Services.AddTransient<IMongoDbContext, MongoDbContext>();
+builder.Services.AddSingleton<IMongoDbContext, MongoDbContext>();
+//builder.Services.AddSingleton(new MongoClient(new MongoClientSettings { }));
 //builder.Services.AddSingleton<>();
 
 builder.Services.AddEndpointsApiExplorer();

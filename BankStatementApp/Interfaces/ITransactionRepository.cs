@@ -6,6 +6,8 @@ namespace BankStatementApp.Interfaces
     {
 
         IEnumerable<BankTransaction> GetBankTransactions(DateTime startDate, DateTime endDate);
+            
+        IEnumerable<BankTransaction> GetBankTransactions();
 
         void InsertBankTransaction(BankTransaction transaction);
 
