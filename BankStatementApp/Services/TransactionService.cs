@@ -1,5 +1,7 @@
 ﻿using BankStatementApp.Interfaces;
 using BankStatementApp.Models;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
 
 namespace BankStatementApp.Services
 {
@@ -47,16 +49,39 @@ namespace BankStatementApp.Services
 
         public byte[] GeneratePdf(IEnumerable<BankTransaction> transactions)
         {
-            using var ms = new MemoryStream();
-            using var writer = new StreamWriter(ms);
-            writer.WriteLine("Extrato Bancário");
-            writer.WriteLine("================");
-            foreach (var t in transactions)
+            using (var stream = new MemoryStream())
             {
-                writer.WriteLine($"{t.Date:dd/MM} - {t.TransactionType} - {t.Amount:C}");
+                var document = new PdfDocument();
+                var page = document.AddPage();
+                var gfx = XGraphics.FromPdfPage(page);
+                var font = new XFont("Verdana", 12);
+                var yOffset = 20;
+
+                var content = new List<string>{
+                    "Extrato Bancário",
+                    "================"
+                };
+                foreach (var t in transactions)
+                {
+                    content.Add($"{t.DateFormatted} - {t.TransactionType} - {t.Amount:C}");
+                }
+        
+                foreach (var item in content)
+                {
+                    gfx.DrawString(item, font, XBrushes.Black,
+                        new XRect(0, yOffset, page.Width, page.Height),
+                        XStringFormats.TopLeft);
+
+                    yOffset += 20;
+                }
+
+                document.Save(stream);
+                stream.Position = 0;
+
+                var fileContent = stream.ToArray();
+
+                return fileContent;
             }
-            writer.Flush();
-            return ms.ToArray();
         }
     }
 }

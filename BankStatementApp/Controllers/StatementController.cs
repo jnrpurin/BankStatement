@@ -30,8 +30,7 @@ namespace BankStatementApp.Controllers
                 return BadRequest(new { message = "Dias inválidos. Selecione entre 5, 10, 15 ou 20 dias." });
             }
 
-            //var transactions = _transactionService.GetTransactionsByDays(days);
-            var transactions = _transactionService.GetAll();
+            var transactions = _transactionService.GetTransactionsByDays(days);
             if (!transactions.Any())
             {
                 return NotFound(new { message = "Nenhuma transação encontrada." });
@@ -53,7 +52,7 @@ namespace BankStatementApp.Controllers
             }
 
             var pdfData = _transactionService.GeneratePdf(transactions);
-            return File(pdfData, "application/pdf", $"extrato_{days}_dias.pdf");
+            return File(pdfData, "application/pdf", $"extrato_{DateTime.Today.ToString()}_{days}_dias.pdf");
         }
     }
 }
