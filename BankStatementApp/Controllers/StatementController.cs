@@ -1,5 +1,6 @@
 ﻿using BankStatementApp.Interfaces;
 using BankStatementApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
@@ -21,6 +22,7 @@ namespace BankStatementApp.Controllers
 
         // GET /api/statements?days=5
         [HttpGet]
+        [Authorize]
         public IActionResult GetStatement([FromQuery] int days)
         {
             if (days != 5 && days != 10 && days != 15 && days != 20)
@@ -41,6 +43,7 @@ namespace BankStatementApp.Controllers
 
         // GET /api/statements/pdf?days=5
         [HttpGet("pdf")]
+        [Authorize]
         public IActionResult GetStatementPdf([FromQuery] int days)
         {
             var transactions = _transactionService.GetTransactionsByDays(days);
